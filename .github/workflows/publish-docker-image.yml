@@ -1,0 +1,16 @@
+name: Publish Docker image
+on:
+  release:
+    # Run whenever code is pushed to any branch in repo
+    types: [push]
+jobs:
+  push_to_registry:
+    name: Push Docker image to GCR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Build Docker Image with GCR tag
+        run: |-
+          docker build -t gcr.io/cre-tools/ts-bridge:test .
